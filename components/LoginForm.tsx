@@ -4,6 +4,8 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { graphqlClient } from "@/clients/api";
+import { loginWithGoogleMutation } from "@/graphql/mutation/auth";
 
 export default function LoginForm() {
   const router = useRouter()
@@ -14,29 +16,16 @@ export default function LoginForm() {
       return toast.error("Google token not found")
     }
 
-    console.log(cred);
+    const {loginWithGoogle} = await graphqlClient.request(loginWithGoogleMutation, {token: googleToken})
+    toast.success("Verified Success")
 
+    if(loginWithGoogle){
+        window.localStorage.setItem("__moments_token", loginWithGoogle)
+    }
 
-    const { loginWithGoogle } = await graphqlClient.request(loginWithGoogleMutation, { token: googleToken })
-    localStorage.setItem("__moments_token", loginWithGoogle || "")
-    router.replace("/dashboard")
-    toast.success("Verified success")
+    console.log(loginWithGoogle);
+
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const idk = await graphqlClient.request(sayHelloQuery);
-        // Do something with sayHello
-        console.log(idk);
-        
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      }
-    };
-  
-    fetchData();
-  }, []);
   
   return (
     <div className="space-y-3">
