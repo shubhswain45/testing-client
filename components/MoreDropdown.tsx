@@ -26,12 +26,13 @@ import { Switch } from "./ui/switch";
 // import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { graphqlClient } from "@/clients/api";
+import { useTheme } from "next-themes";
 
 function MoreDropdown() {
   const [showModeToggle, setShowModeToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-//   const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const router = useRouter()
 
   const handleLogout = async() => {
@@ -112,7 +113,7 @@ function MoreDropdown() {
             <div className="flex items-center border-b border-gray-200 dark:border-neutral-700 py-3.5 px-2.5">
               <ChevronLeft size={18} onClick={() => setShowModeToggle(false)} />
               <p className="font-bold ml-1">Switch appearance</p>
-              {"dark" === "dark" ? (
+              {theme === "dark" ? (
                 <Moon size={20} className="ml-auto" />
               ) : (
                 <Sun size={20} className="ml-auto" />
@@ -125,10 +126,10 @@ function MoreDropdown() {
                 <Switch
                   id="dark-mode"
                   className="ml-auto"
-                  checked={"dark" === "dark"}
-                //   onCheckedChange={(checked) => {
-                //     setTheme(checked ? "dark" : "light");
-                //   }}
+                  checked={theme === "dark"}
+                  onCheckedChange={(checked) => {
+                    setTheme(checked ? "dark" : "light");
+                  }}
                 />
               </DropdownMenuItem>
             </Label>

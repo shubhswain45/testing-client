@@ -78,12 +78,12 @@
         "isOneOf": null,
         "fields": [
           {
-            "name": "sayHello",
+            "name": "getCurrentUser",
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "OBJECT",
+              "name": "User",
               "ofType": null
             },
             "isDeprecated": false,

@@ -1,10 +1,11 @@
-"use client"
-import {GraphQLClient} from 'graphql-request'
+"use client";
+import { GraphQLClient } from 'graphql-request';
 
-const isClient = typeof window !== "undefined"
+const isClient = typeof window !== "undefined";
+const token = isClient ? window.localStorage.getItem("__moments_token") : null;
 
 export const graphqlClient = new GraphQLClient('http://localhost:4000/graphql', {
     headers: () => ({
-        Authorization: isClient ? `Bearer ${window.localStorage.getItem("__moments_token")}` : 'undefined'
-    })
-})
+        Authorization: token ? `Bearer ${token}` : 'undefined',
+    }),
+});
