@@ -1,11 +1,19 @@
+"use client";
 import Post from "@/components/Post"; // Ensure Post is imported if it's a separate component
 import { fetchFeedPosts } from "@/data/fetchFeedPosts";
+import { useFetchFeedPosts } from "@/hooks/post";
+import { PostSkeleton } from "./Skeletons";
 
-async function Posts() {
-  const posts = await fetchFeedPosts();
+function Posts() {
+  const { data: posts, isLoading } = useFetchFeedPosts();
 
-  if (!posts) {
-    return null; // Or render a fallback UI if no posts are found
+  if (isLoading) {
+    return <PostSkeleton />;
+  }
+
+  // Ensure posts is not null or undefined before proceeding
+  if (!posts || posts.length === 0) {
+    return <div>No posts available</div>; // or return null to display nothing
   }
 
   return (

@@ -1,9 +1,9 @@
- import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { Card } from "./ui/card";
 import type { Post } from "@/gql/graphql";
 
-async function Post({ post }: { post: Post }) {
+function Post({ post }: { post: Post }) {
   // Dummy post data
   return (
     <div className="flex flex-col space-y-2.5">
