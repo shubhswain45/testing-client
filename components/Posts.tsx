@@ -1,13 +1,13 @@
 "use client";
 import Post from "@/components/Post"; // Ensure Post is imported if it's a separate component
 import { useFetchFeedPosts } from "@/hooks/post";
-import { PostSkeleton } from "./Skeletons";
+import { PostsSkeleton } from "./Skeletons";
 
 function Posts() {
   const { data: posts, isLoading } = useFetchFeedPosts();
 
   if (isLoading) {
-    return <PostSkeleton />;
+    return <PostsSkeleton />;
   }
 
   // Ensure posts is not null or undefined before proceeding
