@@ -2,13 +2,13 @@
 
 import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { graphqlClient } from "@/clients/api";
+// import { useRouter } from "next/navigation";
+// import { useEffect } from "react";
 import { loginWithGoogleMutation } from "@/graphql/mutation/auth";
+import { createGraphqlClient } from "@/clients/api";
 
 export default function LoginForm() {
-  const router = useRouter()
+  // const router = useRouter()
 
   const handleLoginWithGoogle = async (cred: CredentialResponse) => {
     const googleToken = cred.credential
@@ -16,6 +16,7 @@ export default function LoginForm() {
       return toast.error("Google token not found")
     }
 
+    const graphqlClient = createGraphqlClient()
     const {loginWithGoogle} = await graphqlClient.request(loginWithGoogleMutation, {token: googleToken})
     toast.success("Verified Success")
 

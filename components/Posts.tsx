@@ -1,5 +1,5 @@
 import Post from "@/components/Post"; // Ensure Post is imported if it's a separate component
-import { fetchFeedPosts } from "@/lib/data";
+import { fetchFeedPosts } from "@/data/fetchFeedPosts";
 
 async function Posts() {
   const posts = await fetchFeedPosts();

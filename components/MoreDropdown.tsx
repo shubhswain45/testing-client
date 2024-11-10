@@ -25,7 +25,7 @@ import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 // import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { graphqlClient } from "@/clients/api";
+// import { graphqlClient } from "@/clients/api";
 import { useTheme } from "next-themes";
 
 function MoreDropdown() {

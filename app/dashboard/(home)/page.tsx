@@ -1,7 +1,6 @@
 import Posts from "@/components/Posts";
 import { PostsSkeleton } from "@/components/Skeletons";
-import { useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 
 function DashboardPage() {
   return (
