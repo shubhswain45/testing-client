@@ -1,6 +1,5 @@
 "use client";
 import Post from "@/components/Post"; // Ensure Post is imported if it's a separate component
-import { fetchFeedPosts } from "@/data/fetchFeedPosts";
 import { useFetchFeedPosts } from "@/hooks/post";
 import { PostSkeleton } from "./Skeletons";
 

@@ -1,6 +1,4 @@
 import Posts from "@/components/Posts";
-import { PostsSkeleton } from "@/components/Skeletons";
-import { Suspense } from "react";
 
 function DashboardPage() {
   return (
