@@ -9,7 +9,7 @@ function DashboardPage() {
       <div className="flex flex-col flex-1 gap-y-8 max-w-lg mx-auto pb-20">
         <Suspense fallback={<PostsSkeleton />}>
           <Posts />
-        </Suspense>
+        </Suspense>    
       </div>
     </main>
   );
