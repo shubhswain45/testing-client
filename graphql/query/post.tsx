@@ -15,6 +15,12 @@ export const getFeedPostsQuery = graphql(`#graphql
             fullName
             isVerified
             }
+
+            _count {
+                likes
+            }
+
+            hasLiked
         }
     }
 `)

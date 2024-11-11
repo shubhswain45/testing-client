@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card } from "./ui/card";
 import type { Post } from "@/gql/graphql";
+import UserAvatar from "./UserAvatar";
+import PostActions from "./PostActions";
 
 function Post({ post }: { post: Post }) {
   // Dummy post data
@@ -9,10 +11,10 @@ function Post({ post }: { post: Post }) {
     <div className="flex flex-col space-y-2.5">
       <div className="flex items-center justify-between px-3 sm:px-0">
         <div className="flex space-x-3 items-center">
-          {/* <UserAvatar user={post.user} /> */}
+          <UserAvatar user={post.author} />
           <div className="text-sm">
             <p className="space-x-1">
-              <span className="font-semibold">username</span>
+              <span className="font-semibold">{post.author?.username}</span>
               <span
                 className="font-medium text-neutral-500 dark:text-neutral-400 text-xs"
               >
@@ -20,9 +22,6 @@ function Post({ post }: { post: Post }) {
               </span>
               {/* <Timestamp createdAt={post.createdAt} /> */}
               1d ago
-            </p>
-            <p className="text-xs text-black dark:text-white font-medium">
-              Dubai, United Arab Emirates
             </p>
           </div>
         </div>
@@ -39,12 +38,12 @@ function Post({ post }: { post: Post }) {
         />
       </Card>
 
-      {/* <PostActions post={post} userId={userId} className="px-3 sm:px-0" /> */}
+      <PostActions hasLiked={post.hasLiked} totalLikes={post._count?.likes} postId={post.id} className="px-3 sm:px-0" />
 
       {post.content && (
         <div className="text-sm leading-none flex items-center space-x-2 font-medium px-3 sm:px-0">
           <Link href={`/dashboard/username`} className="font-bold">
-            username
+            {post.author?.username}
           </Link>
           <p>{post.content}</p>
         </div>

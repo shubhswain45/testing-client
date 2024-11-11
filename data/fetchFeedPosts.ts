@@ -1,6 +1,5 @@
 import { createGraphqlClient } from "@/clients/api";
 import { getFeedPostsQuery } from "@/graphql/query/post";
-import { cookies } from 'next/headers';
 
 export const fetchFeedPosts = async (token?: string) => {  
     // Access cookies from the request in the server component context

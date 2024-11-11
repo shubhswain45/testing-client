@@ -1,8 +1,8 @@
-import { CreatePostData } from "@/gql/graphql";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { CreatePostData, Post } from "@/gql/graphql";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { createPostMutation } from "@/graphql/mutation/post";
+import { createPostMutation, likePostMutation } from "@/graphql/mutation/post";
 import { createGraphqlClient } from "@/clients/api";
 import { getFeedPostsQuery } from "@/graphql/query/post";
 
@@ -23,7 +23,7 @@ export const useCreatePost = () => {
         onSuccess: (data) => {
             toast.success("Post created successfully");
             router.back()
-        }, 
+        },
 
         onError: (error: any) => {
             toast.error(error.message);
@@ -36,8 +36,79 @@ export const useFetchFeedPosts = () => {
         queryKey: ['feedPosts'],
         queryFn: async () => {
             const graphqlClient = createGraphqlClient()
-            const {getFeedPosts} = await graphqlClient.request(getFeedPostsQuery)
+            const { getFeedPosts } = await graphqlClient.request(getFeedPostsQuery)
             return getFeedPosts
         }
     })
+}
+
+export const useLikePost = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: async (postId: string) => {
+            try {
+                const graphqlClient = createGraphqlClient()
+                const { likePost } = await graphqlClient.request(likePostMutation, { postId });
+                return {likePost, postId};
+            } catch (error: any) {
+                throw new Error(error.message || "Something went wrong");
+            }
+        },
+
+       
+
+        onSuccess: (data) => {
+            if (data.likePost == true) {
+                queryClient.setQueryData(
+                    ["feedPosts"], // query key
+                    (oldData: [Post] | undefined) => {
+                        return oldData?.map((post) => {
+                            // Check if post id matches the liked post's id
+                            if (data.postId === post.id) {
+                                const prevLikes = post._count?.likes || 0; // Safely access likes
+                                return {
+                                    ...post,
+                                    hasLiked: true,
+                                    _count: {
+                                        likes: prevLikes + 1, // Increment likes
+                                    },
+                                };
+                            } else {
+                                return post; // Return unchanged post if id does not match
+                            }
+                        });
+                    }
+                );
+                toast.success("like successfully");
+            } else {
+                queryClient.setQueryData(
+                    ["feedPosts"], // query key
+                    (oldData: [Post] | undefined) => {
+                        return oldData?.map((post) => {
+                            // Check if post id matches the unliked post's id
+                            if (data.postId === post.id) {
+                                const prevLikes = post._count?.likes || 0; // Safely access likes
+                                return {
+                                    ...post,
+                                    hasLiked: false, // Set hasLiked to false
+                                    _count: {
+                                        likes: prevLikes > 0 ? prevLikes - 1 : 0, // Decrement likes, avoid negative values
+                                    },
+                                };
+                            } else {
+                                return post; // Return unchanged post if id does not match
+                            }
+                        });
+                    }
+                );
+                toast.success("unlike successfully");
+            }
+        },
+        
+        
+
+        onError: (error: any) => {
+            toast.error(error.message);
+        }
+    });
 }
