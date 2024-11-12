@@ -13,7 +13,7 @@ type Props = {
   hasLiked: boolean | null | undefined
 };
 
-function PostActions({hasLiked,totalLikes, postId, className }: Props) {
+function PostActions({ hasLiked, totalLikes, postId, className }: Props) {
   return (
     <div className={cn("relative flex items-start w-full gap-x-2", className)}>
       <LikeButton hasLiked={hasLiked} totalLikes={totalLikes} postId={postId} />
@@ -22,8 +22,8 @@ function PostActions({hasLiked,totalLikes, postId, className }: Props) {
           <MessageCircle className={"h-6 w-6"} />
         </ActionIcon>
       </Link>
-      <ShareButton/>
-      <BookmarkButton/>
+      <ShareButton />
+      <BookmarkButton />
     </div>
   );
 }

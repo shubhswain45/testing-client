@@ -49,13 +49,13 @@ export const useLikePost = () => {
             try {
                 const graphqlClient = createGraphqlClient()
                 const { likePost } = await graphqlClient.request(likePostMutation, { postId });
-                return {likePost, postId};
+                return { likePost, postId };
             } catch (error: any) {
                 throw new Error(error.message || "Something went wrong");
             }
         },
 
-       
+
 
         onSuccess: (data) => {
             if (data.likePost == true) {
@@ -65,13 +65,11 @@ export const useLikePost = () => {
                         return oldData?.map((post) => {
                             // Check if post id matches the liked post's id
                             if (data.postId === post.id) {
-                                const prevLikes = post._count?.likes || 0; // Safely access likes
+                                const prevLikes = post.totalLikeCount || 0; // Safely access likes
                                 return {
                                     ...post,
-                                    hasLiked: true,
-                                    _count: {
-                                        likes: prevLikes + 1, // Increment likes
-                                    },
+                                    userHasLiked: true,
+                                    totalLikeCount: prevLikes + 1
                                 };
                             } else {
                                 return post; // Return unchanged post if id does not match
@@ -87,13 +85,11 @@ export const useLikePost = () => {
                         return oldData?.map((post) => {
                             // Check if post id matches the unliked post's id
                             if (data.postId === post.id) {
-                                const prevLikes = post._count?.likes || 0; // Safely access likes
+                                const prevLikes = post.totalLikeCount || 0; // Safely access likes
                                 return {
                                     ...post,
-                                    hasLiked: false, // Set hasLiked to false
-                                    _count: {
-                                        likes: prevLikes > 0 ? prevLikes - 1 : 0, // Decrement likes, avoid negative values
-                                    },
+                                    userHasLiked: false, // Set hasLiked to false
+                                    totalLikeCount: prevLikes > 0 ? prevLikes - 1 : 0,
                                 };
                             } else {
                                 return post; // Return unchanged post if id does not match
@@ -104,8 +100,8 @@ export const useLikePost = () => {
                 toast.success("unlike successfully");
             }
         },
-        
-        
+
+
 
         onError: (error: any) => {
             toast.error(error.message);

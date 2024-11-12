@@ -38,7 +38,7 @@ function Post({ post }: { post: Post }) {
         />
       </Card>
 
-      <PostActions hasLiked={post.hasLiked} totalLikes={post._count?.likes} postId={post.id} className="px-3 sm:px-0" />
+      <PostActions hasLiked={post.userHasLiked} totalLikes={post.totalLikeCount} postId={post.id} className="px-3 sm:px-0" />
 
       {post.content && (
         <div className="text-sm leading-none flex items-center space-x-2 font-medium px-3 sm:px-0">
