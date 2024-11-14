@@ -1,29 +1,34 @@
 import { cn } from "@/lib/utils";
 import { MessageCircle } from "lucide-react";
-import Link from "next/link";
 import LikeButton from "./LikeButton";
 import ShareButton from "./ShareButton";
-import ActionIcon from "./ActionIcon";
 import BookmarkButton from "./BookmarkButton";
+import { Button } from "@/components/ui/button";
+import CommentModel from "./CommentModel";
+import { useState } from "react";
 
-type Props = {
+type PostActionsProps = {
   className?: string;
-  postId: string
-  totalLikes: number | undefined | null
-  hasLiked: boolean | null | undefined
+  postId: string;
+  totalLikes?: number | null;
+  hasLiked?: boolean | null;
+  bookmarked?: boolean | null;
 };
 
-function PostActions({ hasLiked, totalLikes, postId, className }: Props) {
+function PostActions({ bookmarked, hasLiked, totalLikes, postId, className }: PostActionsProps) {
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <div className={cn("relative flex items-start w-full gap-x-2", className)}>
       <LikeButton hasLiked={hasLiked} totalLikes={totalLikes} postId={postId} />
-      <Link href={`/dashboard/p/`}>
-        <ActionIcon>
-          <MessageCircle className={"h-6 w-6"} />
-        </ActionIcon>
-      </Link>
+
+      <Button variant={"ghost"} size={"icon"} className="h-9 w-9" onClick={() => setOpen(true)}>
+        <MessageCircle className={"h-6 w-6"} />
+      </Button>
+
       <ShareButton />
-      <BookmarkButton />
+      <BookmarkButton bookmarked={bookmarked} postId={postId}/>
+      {open && <CommentModel postId={postId} open={open} setOpen={setOpen} />}
     </div>
   );
 }

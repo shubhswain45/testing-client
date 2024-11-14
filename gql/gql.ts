@@ -16,9 +16,14 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "#graphql\nmutation LoginWithGoogle($token: String!) {\n  loginWithGoogle(token: $token)\n}\n": types.LoginWithGoogleDocument,
     "#graphql\n    mutation CreatePost($payload: createPostData!) {\n        createPost(payload: $payload) {\n            id  \n            imgURL\n            content\n        }\n    }\n": types.CreatePostDocument,
+    "#graphql\n    mutation DeletePost($postId: String!) {\n        deletePost(postId: $postId)\n    }\n": types.DeletePostDocument,
     "#graphql\n    mutation LikePost($postId: String!) {\n  likePost(postId: $postId)\n}\n": types.LikePostDocument,
+    "#graphql\nmutation CommentPost($payload: commentPostData!) {\n  commentPost(payload: $payload) {\n    id\n    content\n    postId\n\n        author {\n            id\n            profileImageURL\n            username\n            }\n  }\n}\n": types.CommentPostDocument,
+    "#graphql\n   mutation DeleteCommentPost($commentId: String!) {\n  deleteCommentPost(commentId: $commentId)\n}\n": types.DeleteCommentPostDocument,
+    "#graphql\n    mutation BookMarkPost($postId: String!) {\n  bookMarkPost(postId: $postId)\n}\n": types.BookMarkPostDocument,
     "#graphql\n    query GetCurrentUser {\n        getCurrentUser {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n        }\n    }\n": types.GetCurrentUserDocument,
-    "#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            userHasLiked\n        }\n    }\n": types.GetFeedPostsDocument,
+    "#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            bookmarked\n            userHasLiked\n        }\n    }\n": types.GetFeedPostsDocument,
+    "#graphql\n    query GetPostComments($postId: String!) {\n  getPostComments(postId: $postId) {\n    id \n    content\n    postId\n\n    author {\n        id\n        profileImageURL\n        username\n    }\n\n  }\n}\n": types.GetPostCommentsDocument,
 };
 
 /**
@@ -46,7 +51,23 @@ export function graphql(source: "#graphql\n    mutation CreatePost($payload: cre
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "#graphql\n    mutation DeletePost($postId: String!) {\n        deletePost(postId: $postId)\n    }\n"): (typeof documents)["#graphql\n    mutation DeletePost($postId: String!) {\n        deletePost(postId: $postId)\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "#graphql\n    mutation LikePost($postId: String!) {\n  likePost(postId: $postId)\n}\n"): (typeof documents)["#graphql\n    mutation LikePost($postId: String!) {\n  likePost(postId: $postId)\n}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "#graphql\nmutation CommentPost($payload: commentPostData!) {\n  commentPost(payload: $payload) {\n    id\n    content\n    postId\n\n        author {\n            id\n            profileImageURL\n            username\n            }\n  }\n}\n"): (typeof documents)["#graphql\nmutation CommentPost($payload: commentPostData!) {\n  commentPost(payload: $payload) {\n    id\n    content\n    postId\n\n        author {\n            id\n            profileImageURL\n            username\n            }\n  }\n}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "#graphql\n   mutation DeleteCommentPost($commentId: String!) {\n  deleteCommentPost(commentId: $commentId)\n}\n"): (typeof documents)["#graphql\n   mutation DeleteCommentPost($commentId: String!) {\n  deleteCommentPost(commentId: $commentId)\n}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "#graphql\n    mutation BookMarkPost($postId: String!) {\n  bookMarkPost(postId: $postId)\n}\n"): (typeof documents)["#graphql\n    mutation BookMarkPost($postId: String!) {\n  bookMarkPost(postId: $postId)\n}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -54,7 +75,11 @@ export function graphql(source: "#graphql\n    query GetCurrentUser {\n        g
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            userHasLiked\n        }\n    }\n"): (typeof documents)["#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            userHasLiked\n        }\n    }\n"];
+export function graphql(source: "#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            bookmarked\n            userHasLiked\n        }\n    }\n"): (typeof documents)["#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            bookmarked\n            userHasLiked\n        }\n    }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "#graphql\n    query GetPostComments($postId: String!) {\n  getPostComments(postId: $postId) {\n    id \n    content\n    postId\n\n    author {\n        id\n        profileImageURL\n        username\n    }\n\n  }\n}\n"): (typeof documents)["#graphql\n    query GetPostComments($postId: String!) {\n  getPostComments(postId: $postId) {\n    id \n    content\n    postId\n\n    author {\n        id\n        profileImageURL\n        username\n    }\n\n  }\n}\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

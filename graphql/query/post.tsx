@@ -1,4 +1,4 @@
-import { graphql } from "@/gql";
+import { graphql } from "@/gql"
 
 export const getFeedPostsQuery = graphql(`#graphql
     query GetFeedPosts {
@@ -17,7 +17,25 @@ export const getFeedPostsQuery = graphql(`#graphql
             }
 
             totalLikeCount
+            bookmarked
             userHasLiked
         }
     }
+`)
+
+export const getPostCommentsQuery = graphql(`#graphql
+    query GetPostComments($postId: String!) {
+  getPostComments(postId: $postId) {
+    id 
+    content
+    postId
+
+    author {
+        id
+        profileImageURL
+        username
+    }
+
+  }
+}
 `)
