@@ -1,9 +1,18 @@
-import React from 'react'
+import PostsGrid from "@/components/PostsGrid";
+import { getUserPosts } from "@/lib/data";
+import type { Post } from "@/gql/graphql";
 
-function page() {
-  return (
-    <div>page</div>
-  )
+async function ProfilePage({
+  params: { username },
+}: {
+  params: { username: string };
+}) {
+  const posts = await getUserPosts(username);
+
+  // Filter out null values
+  const filteredPosts = posts?.filter((post): post is Post => post !== null);
+
+  return <PostsGrid posts={filteredPosts} />;
 }
 
-export default page
+export default ProfilePage;

@@ -26,7 +26,7 @@ async function getProfileWithMetadata(username: string) {
   }
 
   console.log(profile);
-  
+
   return {
     profile,
     metadata: {
@@ -59,7 +59,7 @@ async function ProfileLayout({ children, params: { username } }: Props) {
           </ProfileAvatar>
 
           <div className="md:px-10 space-y-4" style={{ marginLeft: "-10px" }}>
-            <UserOptions profileUsername={profile.username} profileId={profile.id} followed={profile.followed}/>
+            <UserOptions profileUsername={profile.username} profileId={profile.id} followed={profile.followed} />
 
             <div className="flex items-center gap-x-7">
               <p className="font-medium">

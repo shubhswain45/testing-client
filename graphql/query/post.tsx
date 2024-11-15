@@ -39,3 +39,26 @@ export const getPostCommentsQuery = graphql(`#graphql
   }
 }
 `)
+
+export const getUserPostsQuery = graphql(`#graphql
+query GetUserPosts($username: String!) {
+  getUserPosts(username: $username) {
+    id  
+            imgURL
+            content
+
+            author {
+            id
+            profileImageURL
+            email
+            username
+            fullName
+            isVerified
+            }
+
+            totalLikeCount
+            bookmarked
+            userHasLiked 
+  }
+}
+`)
