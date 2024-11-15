@@ -8,11 +8,6 @@ import { Separator } from "./ui/separator";
 import { Bookmark, Clapperboard, Contact, Grid3X3 } from "lucide-react";
 
 // Dummy profile data
-const profile = {
-  username: "john_doe",
-  name: "John Doe",
-  image: "/path/to/avatar.jpg",
-};
 
 const isCurrentUser = true; // Set to true for current user
 
@@ -39,7 +34,7 @@ const profileTabs = [
   },
 ];
 
-function ProfileTabs() {
+function ProfileTabs({username}: {username: string}) {
   const pathname = usePathname();
 
   return (
@@ -48,7 +43,7 @@ function ProfileTabs() {
         {profileTabs
           .filter((tab) => isCurrentUser || tab.href !== "saved")
           .map((tab) => {
-            const profilePage = `/dashboard/${profile.username}`;
+            const profilePage = `/dashboard/${username}`;
             const isActive =
               tab.href === ""
                 ? pathname === profilePage
@@ -66,7 +61,7 @@ function ProfileTabs() {
                 )}
                 asChild
               >
-                <Link href={`/dashboard/${profile.username}/${tab.href}`}>
+                <Link href={`/dashboard/${username}/${tab.href}`}>
                   <Separator
                     className={cn(
                       "!h-px w-16",

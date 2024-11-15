@@ -21,6 +21,7 @@ const documents = {
     "#graphql\nmutation CommentPost($payload: commentPostData!) {\n  commentPost(payload: $payload) {\n    id\n    content\n    postId\n\n        author {\n            id\n            profileImageURL\n            username\n            }\n  }\n}\n": types.CommentPostDocument,
     "#graphql\n   mutation DeleteCommentPost($commentId: String!) {\n  deleteCommentPost(commentId: $commentId)\n}\n": types.DeleteCommentPostDocument,
     "#graphql\n    mutation BookMarkPost($postId: String!) {\n  bookMarkPost(postId: $postId)\n}\n": types.BookMarkPostDocument,
+    "#graphql\nmutation FollowUser($userId: String!) {\n  followUser(userId: $userId)\n}\n": types.FollowUserDocument,
     "#graphql\n    query GetCurrentUser {\n        getCurrentUser {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n        }\n    }\n": types.GetCurrentUserDocument,
     "#graphql\n    query GetFeedPosts {\n        getFeedPosts {\n            id  \n            imgURL\n            content\n\n            author {\n            id\n            profileImageURL\n            email\n            username\n            fullName\n            isVerified\n            }\n\n            totalLikeCount\n            bookmarked\n            userHasLiked\n        }\n    }\n": types.GetFeedPostsDocument,
     "#graphql\n    query GetPostComments($postId: String!) {\n  getPostComments(postId: $postId) {\n    id \n    content\n    postId\n\n    author {\n        id\n        profileImageURL\n        username\n    }\n\n  }\n}\n": types.GetPostCommentsDocument,
@@ -69,6 +70,10 @@ export function graphql(source: "#graphql\n   mutation DeleteCommentPost($commen
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "#graphql\n    mutation BookMarkPost($postId: String!) {\n  bookMarkPost(postId: $postId)\n}\n"): (typeof documents)["#graphql\n    mutation BookMarkPost($postId: String!) {\n  bookMarkPost(postId: $postId)\n}\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "#graphql\nmutation FollowUser($userId: String!) {\n  followUser(userId: $userId)\n}\n"): (typeof documents)["#graphql\nmutation FollowUser($userId: String!) {\n  followUser(userId: $userId)\n}\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

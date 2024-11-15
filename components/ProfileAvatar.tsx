@@ -25,8 +25,6 @@ function ProfileAvatar({
                     </DialogTitle>
                 </DialogHeader>
 
-                \
-
                 <button className="text-red-500 border-b border-zinc-300 dark:border-neutral-700 font-bold w-full text-sm p-3">
                     Remove Current Photo
                 </button>

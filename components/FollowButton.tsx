@@ -1,5 +1,4 @@
-// import { followUser } from "@/lib/actions";
-// import SubmitButton from "./SubmitButton";
+"use client"
 import { buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
 
