@@ -217,8 +217,6 @@ export const useBookMarkPost = () => {
             }
         },
 
-
-
         onSuccess: (data) => {
             if (data.bookMarkPost == true) {
                 queryClient.setQueryData(
