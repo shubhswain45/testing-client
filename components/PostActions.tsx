@@ -1,3 +1,4 @@
+"use client"
 import { cn } from "@/lib/utils";
 import { MessageCircle } from "lucide-react";
 import LikeButton from "./LikeButton";

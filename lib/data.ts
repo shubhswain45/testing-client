@@ -1,5 +1,5 @@
 import { createGraphqlClient } from "@/clients/api"
-import { getUserPostsQuery } from "@/graphql/query/post"
+import { getPostByIdQuery, getUserPostsQuery } from "@/graphql/query/post"
 import { getUserProfileQuery } from "@/graphql/query/user"
 
 export const getUserProfile = async (username: string) => {
@@ -15,3 +15,8 @@ export const getUserPosts = async (username: string) => {
 }
 
 
+export const getPostById = async (postId: string) => {
+    const graphqlClient = createGraphqlClient()
+    const {getPostById} = await graphqlClient.request(getPostByIdQuery, { postId })
+    return getPostById
+}

@@ -62,3 +62,31 @@ query GetUserPosts($username: String!) {
   }
 }
 `)
+
+
+export const getPostByIdQuery = graphql(`#graphql
+query GetPostById($postId: String!) {
+  getPostById(postId: $postId) {
+    id
+    content
+    imgURL
+    author {
+      id
+      username
+      profileImageURL
+    }
+    totalLikeCount
+    totalCommentCount
+    bookmarked
+    userHasLiked
+    comments {
+      id
+      content
+      author {
+        id
+        username
+        profileImageURL
+      }
+    }
+  }
+}`)
