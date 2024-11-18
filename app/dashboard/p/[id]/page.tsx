@@ -1,4 +1,4 @@
-import { PostSkeleton, SinglePostSkeleton } from "@/components/Skeletons";
+import { PostSkeleton } from "@/components/Skeletons";
 import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import SinglePost from "@/components/SinglePost";

@@ -1,6 +1,5 @@
 "use client";
 
-import ActionIcon from "@/components/ActionIcon";
 import { Bookmark } from "lucide-react";
 import { Button } from "./ui/button";
 import { useBookMarkPost } from "@/hooks/post";

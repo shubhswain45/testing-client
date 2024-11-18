@@ -4,7 +4,6 @@ import React from 'react';
 import { Button, buttonVariants } from './ui/button';
 import { Loader, MoreHorizontal, Settings } from 'lucide-react';
 import Link from 'next/link';
-import FollowButton from './FollowButton';
 import { useFollowUser } from '@/hooks/user';
 import { cn } from '@/lib/utils';
 

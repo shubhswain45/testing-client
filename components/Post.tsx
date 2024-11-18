@@ -7,7 +7,7 @@ import PostActions from "./PostActions";
 import { useCurrentUser } from "@/hooks/auth";
 import PostOptions from "./PostOptions";
 
-function Post({ post }: { post: Post }) {
+function Post({ post }: { post: Post | undefined | null}) {
   const { data, isLoading } = useCurrentUser();
 
   if(isLoading) return <h1>Loading....</h1>
@@ -17,10 +17,10 @@ function Post({ post }: { post: Post }) {
     <div className="flex flex-col space-y-2.5">
       <div className="flex items-center justify-between px-3 sm:px-0">
         <div className="flex space-x-3 items-center">
-          <UserAvatar profileImageURL={post.author?.profileImageURL} />
+          <UserAvatar profileImageURL={post?.author?.profileImageURL} />
           <div className="text-sm">
             <p className="space-x-1">
-              <span className="font-semibold">{post.author?.username}</span>
+              <span className="font-semibold">{post?.author?.username}</span>
               <span
                 className="font-medium text-neutral-500 dark:text-neutral-400 text-xs"
               >
@@ -32,21 +32,21 @@ function Post({ post }: { post: Post }) {
           </div>
         </div>
 
-        <PostOptions postId={post.id} isPostMine={post.author?.id == data?.getCurrentUser?.id} />
+        <PostOptions postId={post?.id || ""} isPostMine={post?.author?.id == data?.getCurrentUser?.id} />
       </div>
 
       <Card className="relative h-[450px] w-full overflow-hidden rounded-none sm:rounded-md cursor-pointer">
         <Image
-          src={post.imgURL}
+          src={post?.imgURL || ""}
           alt="Post Image"
           fill
           className="sm:rounded-md object-cover"
         />
       </Card>
 
-      <PostActions bookmarked={post.bookmarked} hasLiked={post.userHasLiked} totalLikes={post.totalLikeCount} postId={post.id} className="px-3 sm:px-0" />
+      <PostActions bookmarked={post?.bookmarked} hasLiked={post?.userHasLiked} totalLikes={post?.totalLikeCount} postId={post?.id || ""} className="px-3 sm:px-0" />
 
-      {post.content && (
+      {post?.content && (
         <div className="text-sm leading-none flex items-center space-x-2 font-medium px-3 sm:px-0">
           <Link href={`/dashboard/username`} className="font-bold">
             {post.author?.username}

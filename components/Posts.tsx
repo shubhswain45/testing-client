@@ -1,28 +1,33 @@
 "use client";
-import Post from "@/components/Post"; // Ensure Post is imported if it's a separate component
-import { useFetchFeedPosts } from "@/hooks/post";
-import { PostsSkeleton } from "./Skeletons";
+import React from 'react';
+import { useFetchFeedPosts } from '@/hooks/post';
+import Post from '@/components/Post'; // Ensure correct path
+import { PostsSkeleton } from './Skeletons'; // Ensure correct path
 
 function Posts() {
-  const { data: posts, isLoading } = useFetchFeedPosts();
-
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useFetchFeedPosts({ take: 5, cursor: null });
+ 
   if (isLoading) {
     return <PostsSkeleton />;
-
   }
 
-  // Ensure posts is not null or undefined before proceeding
-  if (!posts || posts.length === 0) {
-    return <div>No posts available</div>; // or return null to display nothing
+  if (!data?.pages || data.pages.length === 0 || !data.pages[0]?.posts) {
+    return <div>No posts available</div>;
   }
+  console.log(data);
+  
 
   return (
     <>
-      {posts
-        .filter((post): post is Post => post !== null) // Type guard to ensure `post` is not null
+      {data.pages
+        .flatMap((page) => page?.posts) // Combine posts from all pages
         .map((post) => (
-          <Post key={post.id} post={post} />
+          <Post key={post?.id} post={post} />
         ))}
+
+      <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+        {isFetchingNextPage ? "Loading..." : "Load More"}
+      </button>
     </>
   );
 }

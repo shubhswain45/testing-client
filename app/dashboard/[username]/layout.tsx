@@ -1,12 +1,9 @@
-import FollowButton from "@/components/FollowButton";
 import ProfileAvatar from "@/components/ProfileAvatar";
 import ProfileHeader from "@/components/ProfileHeader";
 import ProfileTabs from "@/components/ProfileTabs";
 import UserAvatar from "@/components/UserAvatar";
 import UserOptions from "@/components/UserOptions";
-import { Button, buttonVariants } from "@/components/ui/button";
 import { getUserProfile } from "@/lib/data";
-import { MoreHorizontal, Settings } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";

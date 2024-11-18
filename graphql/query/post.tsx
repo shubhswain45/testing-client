@@ -1,12 +1,12 @@
 import { graphql } from "@/gql"
 
 export const getFeedPostsQuery = graphql(`#graphql
-    query GetFeedPosts {
-        getFeedPosts {
+  query GetFeedPosts($payload: paginationPayload!) {
+  getFeedPosts(payload: $payload) {
+        posts{
             id  
             imgURL
             content
-
             author {
             id
             profileImageURL
@@ -19,8 +19,11 @@ export const getFeedPostsQuery = graphql(`#graphql
             totalLikeCount
             bookmarked
             userHasLiked
-        }
-    }
+       }
+       nextCursor
+       hasMore
+  }
+}
 `)
 
 export const getPostCommentsQuery = graphql(`#graphql

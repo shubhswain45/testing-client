@@ -8,6 +8,7 @@ import PostActions from "./PostActions";
 import Link from "next/link";
 import PostComments from "./PostComments";
 import CommentForm from "./commentForm";
+import { Comment } from "@/gql/graphql";
 
 interface SinglePostProps {
   id: string;
@@ -24,7 +25,7 @@ async function SinglePost({ id }: SinglePostProps) {
     );
   }
 
-  
+
 
 
   return (
@@ -88,11 +89,12 @@ async function SinglePost({ id }: SinglePostProps) {
             className="mt-4 space-y-4 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-neutral-500"
             style={{ maxHeight: "300px" }} // Adjust height as needed
           >
-            <PostComments comments={post.comments} />
+            <PostComments comments={post?.comments?.filter((comment): comment is Comment => comment !== null)} />
+
           </div>
 
           {/* Input Box for Adding Comment */}
-       <CommentForm/>
+          <CommentForm />
         </div>
       </div>
     </main>
