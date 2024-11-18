@@ -3,8 +3,14 @@ import { Suspense } from "react";
 import { Separator } from "@/components/ui/separator";
 import SinglePost from "@/components/SinglePost";
 
-function PostPage({ params: { id } }: { params: { id: string } }) {
+async function PostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const id = (await params).id
   return (
+
     <div>
       <Suspense fallback={<PostSkeleton />}>
         <SinglePost id={id} />
