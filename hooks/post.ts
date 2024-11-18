@@ -72,7 +72,7 @@ export const useFetchFeedPosts = (payload: PaginationPayload) => {
 
 
 
-export const useFetchComments = (postId: string) => {
+export const useFetchComments = (postId: string) => {    
     return useQuery({
         queryKey: ['commentPost', postId],
         queryFn: async () => {

@@ -3,7 +3,7 @@ import { graphql } from "@/gql"
 export const getFeedPostsQuery = graphql(`#graphql
   query GetFeedPosts($payload: paginationPayload!) {
   getFeedPosts(payload: $payload) {
-        posts{
+     posts{
             id  
             imgURL
             content
