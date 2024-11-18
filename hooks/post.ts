@@ -59,9 +59,7 @@ export const useFetchFeedPosts = (payload: PaginationPayload) => {
         queryKey:['feedPosts', payload],
         queryFn: async () => {
             const graphqlClient = createGraphqlClient();
-            const { getFeedPosts } = await graphqlClient.request(getFeedPostsQuery, {
-              payload: { ...payload },
-            });
+            const { getFeedPosts } = await graphqlClient.request(getFeedPostsQuery,{payload});
             return getFeedPosts; // Ensure this matches the `FeedPostsResponse` type
           }
     });
