@@ -5,29 +5,24 @@ import Post from '@/components/Post'; // Ensure correct path
 import { PostsSkeleton } from './Skeletons'; // Ensure correct path
 
 function Posts() {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage } = useFetchFeedPosts({ take: 5, cursor: null });
- 
+  const { data, isLoading } = useFetchFeedPosts({
+    take: 10, // Example: fetch 10 posts at a time (you can adjust this value)
+    cursor: null, // No cursor needed, fetch all posts at once
+  });
+
   if (isLoading) {
     return <PostsSkeleton />;
   }
 
-  if (!data?.pages || data.pages.length === 0 || !data.pages[0]?.posts) {
+  if (!data?.posts || data.posts.length === 0) {
     return <div>No posts available</div>;
   }
-  console.log(data);
-  
 
   return (
     <>
-      {data.pages
-        .flatMap((page) => page?.posts) // Combine posts from all pages
-        .map((post) => (
-          <Post key={post?.id} post={post} />
-        ))}
-
-      <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-        {isFetchingNextPage ? "Loading..." : "Load More"}
-      </button>
+      {data.posts.map((post) => (
+        <Post key={post?.id} post={post} />
+      ))}
     </>
   );
 }

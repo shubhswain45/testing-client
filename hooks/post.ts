@@ -55,19 +55,18 @@ export const useDeletePost = () => {
 }
 
 export const useFetchFeedPosts = (payload: PaginationPayload) => {
-    return useInfiniteQuery({
-        queryKey: ['feedPosts'],
-        queryFn: async ({ pageParam = null }: { pageParam: string | null }) => {
+    return useQuery({
+        queryKey:['feedPosts', payload],
+        queryFn: async () => {
             const graphqlClient = createGraphqlClient();
             const { getFeedPosts } = await graphqlClient.request(getFeedPostsQuery, {
-                payload: { ...payload, cursor: pageParam },
+              payload: { ...payload },
             });
             return getFeedPosts; // Ensure this matches the `FeedPostsResponse` type
-        },
-        initialPageParam: null,
-        getNextPageParam: (lastPage) => lastPage?.nextCursor || null,
+          }
     });
-};
+  };
+  
 
 
 
