@@ -1,8 +1,6 @@
 import { getPostById } from "@/lib/data";
 import Image from "next/image";
-import { DeleteIcon, Heart, MessageCircle, Share, Bookmark } from "lucide-react";
 import UserAvatar from "./UserAvatar";
-import PostOptions from "./PostOptions";
 import { Card } from "./ui/card";
 import PostActions from "./PostActions";
 import Link from "next/link";

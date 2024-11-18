@@ -1,5 +1,5 @@
 import type { Post } from "@/gql/graphql";
-import { HeartIcon, MessageCircle } from "lucide-react";
+import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

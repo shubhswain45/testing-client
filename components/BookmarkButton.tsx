@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { useBookMarkPost } from "@/hooks/post";
 
 function BookmarkButton({ postId, bookmarked }: { postId: string, bookmarked: boolean | null | undefined }) {
-  const { mutate: bookMarkPost, isPending } = useBookMarkPost()
+  const { mutate: bookMarkPost } = useBookMarkPost()
   return (
     <div className="ml-auto">
       <input type="hidden" name="postId" value="post_id_placeholder" />

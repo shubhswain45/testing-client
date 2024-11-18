@@ -45,7 +45,7 @@ function CommentForm() {
   // On component mount, pick 5 random emojis
   React.useEffect(() => {
     getRandomEmojis();
-  }, []);
+  }, [getRandomEmojis]);
 
   return (
     <div className="mt-4 flex flex-col items-center border-t pt-4">

@@ -31,6 +31,8 @@ function CommentModel({ postId, open, setOpen }: CommentModelProps) {
     return emojis.sort(() => 0.5 - Math.random()).slice(0, 5);
   };
 
+  console.log(selectedEmoji);
+  
   useEffect(() => {
     setRandomEmojis(generateRandomEmojis());
   }, []);

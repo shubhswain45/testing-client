@@ -36,6 +36,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  console.log(parent);
   const { metadata } = await getProfileWithMetadata(params.username);
   return metadata;
 }
