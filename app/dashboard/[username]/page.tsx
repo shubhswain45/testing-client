@@ -6,10 +6,11 @@ import type { Post } from "@/gql/graphql";
 async function ProfilePage({
   params,
 }: {
-  params: { username: string }; // Typing params directly
+  params: Promise<{ username: string }>
 }) {
   // Fetch the posts for the given user
-  const posts = await getUserPosts(params.username);
+  const username = (await params).username
+  const posts = await getUserPosts(username);
 
   // Filter out null values
   const filteredPosts = posts?.filter((post): post is Post => post !== null);
