@@ -1,5 +1,5 @@
-import type { Comment, CommentPostData, CreatePostData, PaginationPayload, Post } from "@/gql/graphql";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Comment, CommentPostData, CreatePostData, GetFeedPostsResponse, PaginationPayload, Post } from "@/gql/graphql";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { bookMarkPostMutation, commentPostMutation, createPostMutation, deleteCommentPostMutation, deletePostMutation, likePostMutation } from "@/graphql/mutation/post";
@@ -54,25 +54,21 @@ export const useDeletePost = () => {
     });
 }
 
-export const useFetchFeedPosts = (payload: PaginationPayload) => {
+export const useGetFeedPosts = (payload: { take: number; cursor?: string | null }) => {
     return useQuery({
-      queryKey: ['feedPosts', payload],
-      queryFn: async () => {
-        const graphqlClient = createGraphqlClient();
-  
-        // Ensure you're passing the query document as part of the request options
-        const response = await graphqlClient.request(getFeedPostsQuery, { payload });
-  
-        return response.getFeedPosts; // Make sure `getFeedPosts` is returned correctly from the response
-      },
-    });
+      queryKey:["feedPosts", payload],
+      queryFn:async() => {
+        const graphqlClient = createGraphqlClient()
+        const {getFeedPosts} = await graphqlClient.request(getFeedPostsQuery, { payload });
+        return getFeedPosts;
+      }
+    })
   };
+
+
   
 
-
-
-
-export const useFetchComments = (postId: string) => {    
+export const useFetchComments = (postId: string) => {
     return useQuery({
         queryKey: ['commentPost', postId],
         queryFn: async () => {
