@@ -32,6 +32,9 @@ export default function LoginForm() {
       token: googleToken,
     });
 
+    console.log(loginWithGoogle);
+    
+
     // Get the QueryClient instance from React Query
 
     // Invalidate and remove the cached data for 'currentUser' query
