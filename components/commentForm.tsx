@@ -1,27 +1,30 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState, useCallback, useEffect } from "react";
 
 function CommentForm() {
-  // Array of available emojis
-  const emojis = [
-    "😊", "👍", "❤️", "😂", "😭", "🥰", "😎", "😢", "😍", "😄",
-    "💯", "🙌", "👏", "🔥", "💥", "✨", "🤩", "🥳", "😜", "😇"
-  ];
+  // Array of available emojis (make it constant outside the component)
+  const emojis = React.useMemo(
+    () => [
+      "😊", "👍", "❤️", "😂", "😭", "🥰", "😎", "😢", "😍", "😄",
+      "💯", "🙌", "👏", "🔥", "💥", "✨", "🤩", "🥳", "😜", "😇",
+    ],
+    []
+  );
 
   // State to hold the comment text and the randomly selected emojis
   const [comment, setComment] = useState("");
   const [selectedEmojis, setSelectedEmojis] = useState<string[]>([]);
 
   // Function to pick 5 random emojis from the array
-  const getRandomEmojis = () => {
-    const randomEmojis = [];
+  const getRandomEmojis = useCallback(() => {
+    const randomEmojis: string[] = [];
     const emojisCopy = [...emojis];
     for (let i = 0; i < 5; i++) {
       const randomIndex = Math.floor(Math.random() * emojisCopy.length);
       randomEmojis.push(emojisCopy.splice(randomIndex, 1)[0]);
     }
     setSelectedEmojis(randomEmojis);
-  };
+  }, [emojis]);
 
   // Handle emoji click to insert it into the comment input
   const handleEmojiClick = (emoji: string) => {
@@ -43,7 +46,7 @@ function CommentForm() {
   };
 
   // On component mount, pick 5 random emojis
-  React.useEffect(() => {
+  useEffect(() => {
     getRandomEmojis();
   }, [getRandomEmojis]);
 
